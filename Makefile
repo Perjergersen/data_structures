@@ -12,8 +12,15 @@ build:
 run:
 	./target/$(name)
 
+release: 
+	$(CC) $(flags) $(includes) $(src) -O3 -o ./target/$(name)_release
+
+run-release: release
+	./target/$(name)_release
+
 clean:
 	rm -rf ./target/$(name)
+	rm -rf ./target/$(name)_release
 
 format-all:
 	clang-format -i $(includes) $(src)
