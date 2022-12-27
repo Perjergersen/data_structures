@@ -12,5 +12,6 @@ IList*     ilist_create();
 void       ilist_add(IList* list, int data);
 void       ilist_print(IList* list);
 void       ilist_destroy(IList* list);
+int        ilist_get_size(IList* list);
 
 #endif

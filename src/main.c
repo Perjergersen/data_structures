@@ -9,7 +9,12 @@ main() {
     ilist_add(l, -10);
     ilist_add(l, -12);
     ilist_add(l, 4);
+    ilist_add(l, 3);
+    ilist_add(l, 200);
     ilist_print(l);
+    int list_size = ilist_get_size(l);
+    printf("size: %d\n", list_size);
+
     ilist_destroy(l);
     return 0;
 }

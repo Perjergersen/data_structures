@@ -35,9 +35,11 @@ ilist_add(IList* list, int data) {
     if (list->head == NULL && list->tail == NULL) {
         list->head = new;
         list->tail = new;
+        list->size++;
     } else {
         list->tail->next = new;
         list->tail       = list->tail->next;
+        list->size++;
     }
 }
 
@@ -60,4 +62,9 @@ ilist_destroy(IList* list) {
         free(prev);
     }
     free(list);
+}
+
+int
+ilist_get_size(IList* list) {
+    return list->size;
 }
