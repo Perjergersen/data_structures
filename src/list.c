@@ -1,4 +1,5 @@
 #include "../include/list.h"
+#include <stdlib.h>
 
 struct NodeIList {
     int               data;
@@ -8,7 +9,7 @@ struct NodeIList {
 struct IList {
     NodeIList* head;
     NodeIList* tail;
-    int        size;
+    uint32_t   size;
 };
 
 NodeIList*
@@ -67,4 +68,19 @@ ilist_destroy(IList* list) {
 int
 ilist_get_size(IList* list) {
     return list->size;
+}
+
+int
+ilist_get_data(IList* list, uint32_t index) {
+    NodeIList* curr = list->head;
+
+    if (index > list->size - 1) {
+        fprintf(stderr, "ilist_get_data(): index out of bounds\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (uint32_t i = 0; i < index; i++) {
+        curr = curr->next;
+    }
+    return curr->data;
 }
