@@ -2,7 +2,7 @@ CC=gcc
 flags=-Wall -Werror -Wextra
 includes=./include/*.h
 src=./src/*.c
-test_src= ./test/test.c ./src/list.c
+test_src= ./test/ilist_test.c ./src/ilist.c
 name=list
 math=-lm
 
