@@ -3,7 +3,7 @@ flags=-Wall -Werror -Wextra
 includes=./include/*.h
 src=./src/*.c
 test_src= ./test/ilist_test.c ./src/ilist.c
-name=list
+name=data_structures
 math=-lm
 
 all: build run
