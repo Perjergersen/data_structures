@@ -1,6 +1,9 @@
+#include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "../include/list.h"
+#include "../include/ilist.h"
 
 void* safe_malloc(size_t bytes, int line_number, char* file);
 
@@ -14,27 +17,35 @@ safe_malloc(size_t bytes, int line_number, char* file) {
         return s;
     }
 
-    fprintf(stderr, "**safe_malloc() failed - line: %d.**\n**File: %s**\n",
+    fprintf(stderr,
+            "\033[0;31mLine: %d - safe_malloc() failed.\nFile: %s\n\033[0m",
             line_number, file);
     exit(EXIT_FAILURE);
 }
 
+struct Person {
+    int grade;
+    int age;
+};
+
 int
 main() {
-    IList* l = ilist_create();
-    ilist_add(l, 10);
-    ilist_add(l, 20);
-    ilist_add(l, -10);
-    ilist_add(l, -12);
-    ilist_add(l, 4);
-    ilist_add(l, 3);
-    ilist_add(l, 200);
-    ilist_print(l);
-    int list_size = ilist_get_size(l);
-    printf("size: %d\n", list_size);
+    struct Person* p_ptr = s_malloc(sizeof(struct Person));
+    p_ptr->grade         = 12;
+    p_ptr->age           = 18;
+    void* v_ptr          = p_ptr;
 
-    printf("index: 5, data: %d\n", ilist_get_data(l, 5));
+    *(int*) (v_ptr)     = 100;
+    *(int*) (v_ptr + 4) = 200;
 
-    ilist_destroy(l);
+    int grade = p_ptr->grade;
+    int age   = p_ptr->age;
+
+    printf("%d\n%d\n", grade, age);
+
+    int* n = s_malloc(4);
+    *n     = 10;
+    printf("%d\n", *n);
+
     return 0;
 }
