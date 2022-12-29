@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "../include/ihashmap.h"
 #include "../include/ilist.h"
 
 void* safe_malloc(size_t bytes, int line_number, char* file);
@@ -28,24 +29,58 @@ struct Person {
     int age;
 };
 
+int*
+twoSum(int* nums, int numsSize, int target, int* returnSize) {
+    returnSize   = malloc(sizeof(int) * 2);
+    IHashMap* hm = ihashmap_create(16);
+
+    for (int i = 0; i < numsSize; i++) {
+        int comp = target - nums[i];
+        NodeIHashMap* try
+            = ihashmap_get(hm, comp);
+        if (try) {
+            returnSize[0] = nodeihashmap_get_value(try);
+            returnSize[1] = i;
+            printf("\n");
+            ihashmap_print(hm);
+            ihashmap_destroy(hm);
+            printf("\n");
+            return returnSize;
+        }
+        ihashmap_add(hm, nums[i], i);
+    }
+    return NULL;
+}
+
 int
 main() {
-    struct Person* p_ptr = s_malloc(sizeof(struct Person));
-    p_ptr->grade         = 12;
-    p_ptr->age           = 18;
-    void* v_ptr          = p_ptr;
+    #ifdef TWOSUM
+    int  nums[]    = {2, 7, 11, 15};
+    int  size      = sizeof(nums) / sizeof(nums[0]);
+    int  targ      = 26;
+    int* returnArr = twoSum(nums, size, targ, returnArr);
 
-    *(int*) (v_ptr)     = 100;
-    *(int*) (v_ptr + 4) = 200;
+    printf("[%d,%d]\n", returnArr[0], returnArr[1]);
 
-    int grade = p_ptr->grade;
-    int age   = p_ptr->age;
+    free(returnArr);
+    returnArr=NULL;
+    #endif
 
-    printf("%d\n%d\n", grade, age);
+    IHashMap* hm = ihashmap_create(1000);
+    ihashmap_add(hm, 10, 0);
+    ihashmap_add(hm, 492, 1);
+    ihashmap_add(hm, 488, 2);
+    ihashmap_add(hm, 93, 3);
+    ihashmap_add(hm, 590, 4);
+    ihashmap_add(hm, 182, 5);
+    ihashmap_add(hm, 4995, 6);
+    ihashmap_add(hm, -283, 7);
+    ihashmap_add(hm, 9283, 8);
+    ihashmap_add(hm, -283, 100);
 
-    int* n = s_malloc(4);
-    *n     = 10;
-    printf("%d\n", *n);
+    ihashmap_print(hm);
+
+    ihashmap_destroy(hm);
 
     return 0;
 }
