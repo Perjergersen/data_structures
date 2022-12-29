@@ -1,121 +1,122 @@
+#include "../include/ilist.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "../include/ilist.h"
+#include "nptest.h"
 
-void test_nodeilist_create();
-void test_ilist_create();
-void test_ilist_add();
-void test_ilist_print();
-void test_ilist_destroy();
-void test_ilist_get_size();
-void test_ilist_get_data();
-void p_success(const char* func_name, int line_number);
-void p_failure(const char* func_name, int line_number);
-bool ASSERT_T(bool expr, const char* func_name, int line_number);
+int test_nodeilist_create();
+int test_ilist_create();
+int test_ilist_add();
+int test_ilist_print();
+int test_ilist_destroy();
+int test_ilist_get_size();
+int test_ilist_get_data();
 
-#define ASSERT(expr) ASSERT_T(expr, __func__, __LINE__)
-
-void
-p_success(const char* func_name, int line_number) {
-    printf("\033[0;32mPassed\033[0m | Line: %4d | %s\n", line_number,
-           func_name);
-}
-
-void
-p_failure(const char* func_name, int line_number) {
-    printf("\033[0;31mFailed\033[0m | Line: %4d | %s\n", line_number,
-           func_name);
-}
-
-bool
-ASSERT_T(bool expr, const char* func_name, int line_number) {
-    (expr) ? p_success(func_name, line_number)
-           : p_failure(func_name, line_number);
-    return (expr);
-}
-
-void
+int
 test_nodeilist_create() {
-    NodeIList* nil = nodeilist_create(10);
-    ASSERT(nil != NULL);
+    NodeIList* nil   = nodeilist_create(10);
+    bool       test1 = ASSERT(nil != NULL);
     free(nil);
+
+    return test1;
 }
 
-void
+int
 test_ilist_create() {
-    IList* il = ilist_create();
-    ASSERT(il != NULL);
+    IList* il    = ilist_create();
+    bool   test1 = ASSERT(il != NULL);
     ilist_destroy(il);
+
+    return test1;
 }
 
-void
+int
 test_ilist_add() {
     IList* il = ilist_create();
     ilist_add(il, 10);
     ilist_add(il, 30);
     ilist_add(il, -10);
-    ASSERT(il != NULL);
-    ASSERT(ilist_get_data(il, 0) == 10);
-    ASSERT(ilist_get_data(il, 1) == 30);
-    ASSERT(ilist_get_data(il, 2) == -10);
+    bool test1 = ASSERT(il != NULL);
+    bool test2 = ASSERT(ilist_get_data(il, 0) == 10);
+    bool test3 = ASSERT(ilist_get_data(il, 1) == 30);
+    bool test4 = ASSERT(ilist_get_data(il, 2) == -10);
     ilist_destroy(il);
+
+    return test1 + test2 + test3 + test4;
 }
 
-void
+int
 test_ilist_print() {
-    ASSERT(true);
-    return;
+    bool test1 = ASSERT(true);
+
+    return test1;
 }
 
-void
+int
 test_ilist_destroy() {
     IList* il = ilist_create();
     ilist_add(il, 10);
     ilist_add(il, 30);
     ilist_add(il, -10);
     ilist_destroy(il);
-    il = NULL;
-    ASSERT(il == NULL);
+    il         = NULL;
+    bool test1 = ASSERT(il == NULL);
+
+    return test1;
 }
 
-void
+int
 test_ilist_get_size() {
     IList* il = ilist_create();
     ilist_add(il, 10);
     ilist_add(il, 30);
     ilist_add(il, -10);
-    ASSERT(il != NULL);
-    ASSERT(ilist_get_size(il) == 3);
+    bool test1 = ASSERT(il != NULL);
+    bool test2 = ASSERT(ilist_get_size(il) == 3);
     ilist_add(il, -20);
-    ASSERT(ilist_get_size(il) == 4);
+    bool test3 = ASSERT(ilist_get_size(il) == 4);
     ilist_destroy(il);
+
+    return test1 + test2 + test3;
 }
 
-void
+int
 test_ilist_get_data() {
     IList* il = ilist_create();
     ilist_add(il, 10);
     ilist_add(il, 30);
     ilist_add(il, -10);
-    ASSERT(il != NULL);
-    ASSERT(ilist_get_data(il, 0) == 10);
-    ASSERT(ilist_get_data(il, 1) == 30);
-    ASSERT(ilist_get_data(il, 2) == -10);
+    bool test1 = ASSERT(il != NULL);
+    bool test2 = ASSERT(ilist_get_data(il, 0) == 10);
+    bool test3 = ASSERT(ilist_get_data(il, 1) == 30);
+    bool test4 = ASSERT(ilist_get_data(il, 2) == -10);
     ilist_destroy(il);
+
+    return test1 + test2 + test3 + test4;
 }
 
 int
 main() {
-    printf("--- TEST FILE : %s ---\n", __FILE__);
+    printf("\033[0;33m--- TEST FILE : %s ---\033[0m\n", __FILE__);
 
-    test_nodeilist_create();
-    test_ilist_create();
-    test_ilist_add();
-    test_ilist_print();
-    test_ilist_destroy();
-    test_ilist_get_size();
-    test_ilist_get_data();
+    int test1 = test_nodeilist_create();
+    int test2 = test_ilist_create();
+    int test3 = test_ilist_add();
+    int test4 = test_ilist_print();
+    int test5 = test_ilist_destroy();
+    int test6 = test_ilist_get_size();
+    int test7 = test_ilist_get_data();
 
-    printf("--- TEST FILE : %s ---\n", __FILE__);
+    int number_of_asserts = 15;
+    int tests_passed = test1 + test2 + test3 + test4 + test5 + test6 + test7;
+
+    if (tests_passed == number_of_asserts) {
+        printf("\033[0;32m%d / %d Passed\033[0m\n", tests_passed,
+               number_of_asserts);
+    } else {
+        printf("\033[0;31m%d / %d Passed\033[0m\n", tests_passed,
+               number_of_asserts);
+    }
+
+    printf("\033[0;33m--- TEST FILE : %s ---\033[0m\n\n", __FILE__);
     return 0;
 }
