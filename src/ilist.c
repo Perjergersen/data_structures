@@ -61,8 +61,10 @@ ilist_destroy(IList* list) {
         NodeIList* prev = curr;
         curr            = curr->next;
         free(prev);
+        prev = NULL;
     }
     free(list);
+    list = NULL;
 }
 
 int
