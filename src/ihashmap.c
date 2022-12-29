@@ -40,7 +40,7 @@ ihashmap_add(IHashMap* hm, int key, int value) {
 
     if (hm->map[hashed_key] == NULL) {
         hm->map[hashed_key] = new_node;
-        //printf("k: %d, v: %d -- added at %u\n", key, value, hashed_key);
+        // printf("k: %d, v: %d -- added at %u\n", key, value, hashed_key);
     } else {
         NodeIHashMap* curr = hm->map[hashed_key];
         if (curr->key == key) {
@@ -57,13 +57,14 @@ ihashmap_add(IHashMap* hm, int key, int value) {
         }
         if (curr)
             curr->next = new_node;
-        //printf("k: %d, v: %d -- added at %u (collision)\n", key, value, hashed_key);
+        // printf("k: %d, v: %d -- added at %u (collision)\n", key, value,
+        // hashed_key);
     }
 }
 
 NodeIHashMap*
 ihashmap_get(IHashMap* hm, int key) {
-    //printf("looking for %d...\n", key);
+    // printf("looking for %d...\n", key);
     if (hm == NULL) {
         fprintf(stderr,
                 "Passed a IHashMap* into ihashmap_get_value that was pointing "
@@ -74,21 +75,21 @@ ihashmap_get(IHashMap* hm, int key) {
     uint32_t hashed_key = hash_int(hm, key);
 
     if (hm->map[hashed_key] == NULL) {
-        //printf("%d key not in hashmap\n", key);
+        // printf("%d key not in hashmap\n", key);
         return NULL;
     }
 
     if (hm->map[hashed_key]->key == key) {
-        //printf("returned k: %d, v: %d at %u\n", hm->map[hashed_key]->key,
-        //       hm->map[hashed_key]->value, hashed_key);
+        // printf("returned k: %d, v: %d at %u\n", hm->map[hashed_key]->key,
+        //        hm->map[hashed_key]->value, hashed_key);
         return hm->map[hashed_key];
     }
 
     NodeIHashMap* curr = hm->map[hashed_key];
     while (curr) {
         if (curr->key == key) {
-            //printf("returned k: %d, v: %d at %u\n", curr->key, curr->value,
-            //      hashed_key);
+            // printf("returned k: %d, v: %d at %u\n", curr->key, curr->value,
+            //       hashed_key);
             return curr;
         }
         curr = curr->next;

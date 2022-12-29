@@ -1,5 +1,4 @@
 #include "../include/ilist.h"
-#include <stdlib.h>
 
 struct NodeIList {
     int               data;

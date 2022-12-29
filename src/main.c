@@ -54,7 +54,7 @@ twoSum(int* nums, int numsSize, int target, int* returnSize) {
 
 int
 main() {
-    #ifdef TWOSUM
+#ifdef TWOSUM
     int  nums[]    = {2, 7, 11, 15};
     int  size      = sizeof(nums) / sizeof(nums[0]);
     int  targ      = 26;
@@ -63,8 +63,8 @@ main() {
     printf("[%d,%d]\n", returnArr[0], returnArr[1]);
 
     free(returnArr);
-    returnArr=NULL;
-    #endif
+    returnArr = NULL;
+#endif
 
     IHashMap* hm = ihashmap_create(1000);
     ihashmap_add(hm, 10, 0);
