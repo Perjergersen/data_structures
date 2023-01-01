@@ -13,18 +13,32 @@ struct IList {
 
 NodeIList*
 nodeilist_create(int data) {
-    NodeIList* nil = malloc(sizeof(NodeIList));
+    NodeIList* nil = smalloc(sizeof(NodeIList));
     nil->data      = data;
     nil->next      = NULL;
     return nil;
 }
 
 IList*
-ilist_create() {
-    IList* il = malloc(sizeof(IList));
+ilist_create_empty() {
+    IList* il = smalloc(sizeof(IList));
     il->head  = NULL;
     il->tail  = NULL;
     il->size  = 0;
+    return il;
+}
+
+IList*
+ilist_create(int num_of_list_elements, ...) {
+    IList*  il = ilist_create_empty();
+    va_list args;
+    va_start(args, num_of_list_elements);
+
+    for (int i = 0; i < num_of_list_elements; i++) {
+        ilist_add(il, va_arg(args, int));
+    }
+
+    va_end(args);
     return il;
 }
 
@@ -47,10 +61,15 @@ void
 ilist_print(IList* list) {
     NodeIList* curr = list->head;
 
+    printf("[");
     while (curr) {
-        printf("%d\n", curr->data);
+        printf("%d", curr->data);
+        if (curr->next != NULL) {
+            printf(", ");
+        }
         curr = curr->next;
     }
+    printf("]\n");
 }
 void
 ilist_destroy(IList* list) {
