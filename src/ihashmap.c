@@ -13,7 +13,7 @@ struct IHashMap {
 
 NodeIHashMap*
 nodeihashmap_create(int key, int value) {
-    NodeIHashMap* node = malloc(sizeof(NodeIHashMap));
+    NodeIHashMap* node = smalloc(sizeof(NodeIHashMap));
     node->key          = key;
     node->value        = value;
     node->next         = NULL;
@@ -22,8 +22,8 @@ nodeihashmap_create(int key, int value) {
 
 IHashMap*
 ihashmap_create(uint32_t size) {
-    IHashMap* hashmap = malloc(sizeof(IHashMap));
-    hashmap->map      = malloc(sizeof(NodeIHashMap*) * size);
+    IHashMap* hashmap = smalloc(sizeof(IHashMap));
+    hashmap->map      = smalloc(sizeof(NodeIHashMap*) * size);
     hashmap->size     = size;
 
     for (uint32_t i = 0; i < size; i++) {
@@ -99,19 +99,19 @@ ihashmap_get(IHashMap* hm, int key) {
 
 void
 ihashmap_print(IHashMap* hm) {
+    printf("{ ");
     for (uint32_t i = 0; i < hm->size; i++) {
         if (hm->map[i] == NULL) {
             continue;
         }
 
         NodeIHashMap* curr = hm->map[i];
-        printf("[Array Pos: %-5d] ", i);
         while (curr) {
-            printf("Key:Value:%5d:%-2d -> ", curr->key, curr->value);
+            printf("(%d: %d) ", curr->key, curr->value);
             curr = curr->next;
         }
-        printf("\n");
     }
+    printf("}\n");
 }
 
 void

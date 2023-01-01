@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../include/safe_xallocs.h"
+
 typedef struct NodeIHashMap NodeIHashMap;
 typedef struct IHashMap     IHashMap;
 
