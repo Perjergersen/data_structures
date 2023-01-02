@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/safe_xallocs.h"
+#include "safe_xallocs.h"
 
 typedef struct NodeIList NodeIList;
 typedef struct IList     IList;
