@@ -12,7 +12,7 @@ typedef struct IHashMap     IHashMap;
 
 NodeIHashMap* nodeihashmap_create(int key, int value);
 IHashMap*     ihashmap_create(uint32_t size);
-void          ihashmap_add(IHashMap* hm, int key, int value);
+void          ihashmap_insert(IHashMap* hm, int key, int value);
 NodeIHashMap* ihashmap_get(IHashMap* hm, int key);
 void          ihashmap_print(IHashMap* hm);
 void          ihashmap_destroy(IHashMap* hm);

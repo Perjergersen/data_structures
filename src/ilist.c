@@ -35,7 +35,7 @@ ilist_create(int num_of_list_elements, ...) {
     va_start(args, num_of_list_elements);
 
     for (int i = 0; i < num_of_list_elements; i++) {
-        ilist_add(il, va_arg(args, int));
+        ilist_insert(il, va_arg(args, int));
     }
 
     va_end(args);
@@ -43,7 +43,7 @@ ilist_create(int num_of_list_elements, ...) {
 }
 
 void
-ilist_add(IList* list, int data) {
+ilist_insert(IList* list, int data) {
     NodeIList* new = nodeilist_create(data);
 
     if (list->head == NULL && list->tail == NULL) {

@@ -34,7 +34,7 @@ ihashmap_create(uint32_t size) {
 }
 
 void
-ihashmap_add(IHashMap* hm, int key, int value) {
+ihashmap_insert(IHashMap* hm, int key, int value) {
     uint32_t      hashed_key = hash_int(hm, key);
     NodeIHashMap* new_node   = nodeihashmap_create(key, value);
 

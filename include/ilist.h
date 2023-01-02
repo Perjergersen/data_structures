@@ -14,7 +14,7 @@ typedef struct IList     IList;
 NodeIList* nodeilist_create(int data);
 IList*     ilist_create_empty();
 IList*     ilist_create(int num_of_list_elements, ...);
-void       ilist_add(IList* list, int data);
+void       ilist_insert(IList* list, int data);
 void       ilist_print(IList* list);
 void       ilist_destroy(IList* list);
 int        ilist_get_size(IList* list);
