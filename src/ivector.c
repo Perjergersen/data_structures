@@ -7,11 +7,25 @@ struct IVector {
 };
 
 IVector*
-ivector_create() {
+ivector_create_empty() {
     IVector* iv   = smalloc(sizeof(IVector));
     iv->mem_alloc = 2;
     iv->vec       = scalloc(iv->mem_alloc, sizeof(int));
     iv->size      = 0;
+    return iv;
+}
+
+IVector*
+ivector_create(int num_of_vec_elements, ...) {
+    IVector* iv = ivector_create_empty();
+    va_list  args;
+    va_start(args, num_of_vec_elements);
+
+    for (int i = 0; i < num_of_vec_elements; i++) {
+        ivector_insert(iv, va_arg(args, int));
+    }
+
+    va_end(args);
     return iv;
 }
 
