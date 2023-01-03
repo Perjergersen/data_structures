@@ -37,6 +37,7 @@ two_sum(IVector* nums, int nums_size, int target, int* return_size) {
     }
     *return_size = 0;
     ihashmap_destroy(map);
+    printf("change for git testing\n");
     return ret;
 }
 
