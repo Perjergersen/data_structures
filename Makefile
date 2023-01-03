@@ -36,10 +36,11 @@ t-valgrind:
 	@valgrind ./target/$(name)_ilist_test
 	@valgrind ./target/$(name)_ihashmap_test
 
+build-debug:
+	@$(CC) $(flags) $(includes) $(src) -g -o ./target/$(name)_debug $(math)
+
 clean:
-	rm -rf ./target/$(name)
-	rm -rf ./target/$(name)_release
-	rm -rf ./target/$(name)_test
+	rm -rf ./target/*
 
 format-all: $(includes) $(src)
 	@clang-format -i $(all_C_and_H_files);
