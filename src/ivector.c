@@ -51,3 +51,11 @@ int
 ivector_size(IVector* iv) {
     return iv->size;
 }
+
+void
+ivector_destroy(IVector* iv) {
+    free(iv->vec);
+    iv->vec = NULL;
+    free(iv);
+    iv = NULL;
+}
