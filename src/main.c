@@ -44,21 +44,30 @@ two_sum(IVector* nums, int nums_size, int target, int* return_size) {
 
 int
 main() {
-    IQueue* iq = iqueue_create();
-    iqueue_insert(iq, 10);
-    iqueue_insert(iq, 69);
-    iqueue_insert(iq, 39);
-    iqueue_insert(iq, 59);
-    iqueue_insert(iq, 20);
-    iqueue_print(iq);
-    iqueue_pop(iq);
-    iqueue_print(iq);
-    iqueue_insert(iq, 499);
-    iqueue_print(iq);
-    iqueue_pop(iq);
-    iqueue_print(iq);
-    iqueue_destroy(iq);
+    IList* list = ilist_create(10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    ilist_print(list);
 
+    IQueue* iq = iqueue_create();
+    for (int i = 0; i < 10; i++) {
+        iqueue_insert(iq, i);
+    }
+    iqueue_print(iq);
+
+    IVector* iv = ivector_create(10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    ivector_print(iv);
+
+    IHashMap* map = ihashmap_create(100);
+    ihashmap_insert(map, 0, 0);
+    ihashmap_insert(map, 1, 1);
+    ihashmap_insert(map, 2, 2);
+    ihashmap_insert(map, 3, 3);
+    ihashmap_insert(map, 4, 4);
+    ihashmap_insert(map, 5, 5);
+    ihashmap_insert(map, 6, 6);
+    ihashmap_insert(map, 7, 7);
+    ihashmap_insert(map, 8, 8);
+    ihashmap_insert(map, 9, 9);
+    ihashmap_print(map);
 
     return 0;
 }
