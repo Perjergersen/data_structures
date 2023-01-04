@@ -8,6 +8,7 @@
 #include "../include/ihashmap.h"
 #include "../include/ilist.h"
 #include "../include/ivector.h"
+#include "../include/iqueue.h"
 #include "../include/safe_xallocs.h"
 
 int
@@ -43,13 +44,21 @@ two_sum(IVector* nums, int nums_size, int target, int* return_size) {
 
 int
 main() {
-    IVector* nums = ivector_create(4, 2, 5, 8, 10);
-    ivector_print(nums);
-    printf("%d\n", ivector_size(nums));
-    int      target   = 12;
-    int*     ret_size = smalloc(sizeof(int) * 1);
-    IVector* ts       = two_sum(nums, ivector_size(nums), target, ret_size);
-    ivector_print(ts);
+    IQueue* iq = iqueue_create();
+    iqueue_insert(iq, 10);
+    iqueue_insert(iq, 69);
+    iqueue_insert(iq, 39);
+    iqueue_insert(iq, 59);
+    iqueue_insert(iq, 20);
+    iqueue_print(iq);
+    iqueue_pop(iq);
+    iqueue_print(iq);
+    iqueue_insert(iq, 499);
+    iqueue_print(iq);
+    iqueue_pop(iq);
+    iqueue_print(iq);
+    iqueue_destroy(iq);
+
 
     return 0;
 }
