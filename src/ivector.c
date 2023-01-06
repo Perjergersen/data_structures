@@ -42,7 +42,7 @@ ivector_insert(IVector* iv, int data) {
 
 void
 ivector_print(IVector* iv) {
-    printf("[");
+    printf("Vector: [");
     for (int i = 0; i < iv->size; i++) {
         printf("%d", iv->vec[i]);
         if (i != iv->size - 1) {

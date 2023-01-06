@@ -62,7 +62,7 @@ IQueueNode* iqueue_next(IQueue* iq) {
 }
 void iqueue_print(IQueue* iq) {
     IQueueNode* curr = iq->head;
-    printf("[");
+    printf("Queue: F[");
     while (curr) {
         printf("%d", curr->data);
         curr = curr->next;
@@ -70,7 +70,7 @@ void iqueue_print(IQueue* iq) {
             printf(", ");
         }
     }
-    printf("]\n");
+    printf("]B\n");
 }
 
 int iqueuenode_get_data(IQueueNode* iq) {

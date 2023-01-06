@@ -61,7 +61,7 @@ void
 ilist_print(IList* list) {
     NodeIList* curr = list->head;
 
-    printf("[");
+    printf("List: [");
     while (curr) {
         printf("%d", curr->data);
         if (curr->next != NULL) {
