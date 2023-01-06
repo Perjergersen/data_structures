@@ -1,2 +1,3 @@
 # ignore target executeables
+src/main.c
 target/
