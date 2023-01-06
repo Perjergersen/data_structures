@@ -3,8 +3,8 @@
 ### hashmap <int, int> (IHashMap)
 ### linked list <int> (IList)
 ### dynamic array <int> (IVector)
+### queue <int> (IQueue)
+### stack <int> (IStack)
 
 # todo
-### queue
-### stack
 ### tree
