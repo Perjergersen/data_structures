@@ -1,5 +1,5 @@
 CC=gcc
-flags=
+flags=-Wall -Werror -Wextra
 includes=./include/*.h
 src=./src/*.c
 all_C_and_H_files=./src/*.c ./include/*.h ./test/*.c ./test/*.h
@@ -26,7 +26,7 @@ release: $(includes) $(src)
 
 t: $(test_src)
 	@$(CC) $(flags) $(includes) $(ilist_test_files) -o ./target/$(name)_ilist_test $(math)
-	$(CC) $(flags) $(includes) $(ihashmap_test_files) -o ./target/$(name)_ihashmap_test $(math)
+	@$(CC) $(flags) $(includes) $(ihashmap_test_files) -o ./target/$(name)_ihashmap_test $(math)
 	@./target/$(name)_ilist_test
 	@./target/$(name)_ihashmap_test
 
@@ -38,6 +38,26 @@ t-valgrind:
 
 build-debug:
 	@$(CC) $(flags) $(includes) $(src) -g -o ./target/$(name)_debug $(math)
+
+./target/libihashmap.so: src/ihashmap.c include/ihashmap.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/ihashmap.c -lc
+
+./target/libilist.so: src/ilist.c include/ilist.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/ilist.c -lc
+
+./target/libivector.so: src/ivector.c include/ivector.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/ivector.c -lc
+
+./target/libiqueue.so: src/iqueue.c include/iqueue.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/iqueue.c -lc
+
+./target/libistack.so: src/istack.c include/istack.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/istack.c -lc
+
+./target/libsafe_xallocs.so: src/safe_xallocs.c include/safe_xallocs.h
+	$(CC) $(flags) -fPIC -shared -o $@ src/safe_xallocs.c -lc
+
+gen-libs: ./target/libsafe_xallocs.so ./target/libistack.so ./target/libiqueue.so ./target/libivector.so ./target/libilist.so ./target/libihashmap.so
 
 clean:
 	rm -rf ./target/*
