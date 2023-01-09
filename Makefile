@@ -9,13 +9,13 @@ math=-lm
 ilist_test_files=./src/ilist.c ./include/ilist.h ./test/ilist_test.c
 ihashmap_test_files=./src/ihashmap.c ./include/ihashmap.h ./test/ihashmap_test.c
 
-all: build run
+all: ./target/$(name) run
 
 init:
-	mkdir include src target test
+	mkdir include src target test target/dslib
 
-build: $(includes) $(src)
-	@$(CC) $(flags) $(includes) $(src) -o ./target/$(name) $(math)
+./target/$(name): $(includes) $(src)
+	@$(CC) $(flags) $(includes) $(src) -o $@ $(math)
 
 run: 
 	@./target/$(name)
