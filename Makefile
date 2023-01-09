@@ -39,25 +39,25 @@ t-valgrind:
 build-debug:
 	@$(CC) $(flags) $(includes) $(src) -g -o ./target/$(name)_debug $(math)
 
-./target/libihashmap.so: src/ihashmap.c include/ihashmap.h
+./target/dslib/libihashmap.so: src/ihashmap.c include/ihashmap.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/ihashmap.c -lc
 
-./target/libilist.so: src/ilist.c include/ilist.h
+./target/dslib/libilist.so: src/ilist.c include/ilist.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/ilist.c -lc
 
-./target/libivector.so: src/ivector.c include/ivector.h
+./target/dslib/libivector.so: src/ivector.c include/ivector.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/ivector.c -lc
 
-./target/libiqueue.so: src/iqueue.c include/iqueue.h
+./target/dslib/libiqueue.so: src/iqueue.c include/iqueue.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/iqueue.c -lc
 
-./target/libistack.so: src/istack.c include/istack.h
+./target/dslib/libistack.so: src/istack.c include/istack.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/istack.c -lc
 
-./target/libsafe_xallocs.so: src/safe_xallocs.c include/safe_xallocs.h
+./target/dslib/libsafe_xallocs.so: src/safe_xallocs.c include/safe_xallocs.h
 	$(CC) $(flags) -fPIC -shared -o $@ src/safe_xallocs.c -lc
 
-gen-libs: ./target/libsafe_xallocs.so ./target/libistack.so ./target/libiqueue.so ./target/libivector.so ./target/libilist.so ./target/libihashmap.so
+gen-libs: ./target/dslib/libsafe_xallocs.so ./target/dslib/libistack.so ./target/dslib/libiqueue.so ./target/dslib/libivector.so ./target/dslib/libilist.so ./target/dslib/libihashmap.so
 
 clean:
 	rm -rf ./target/*
