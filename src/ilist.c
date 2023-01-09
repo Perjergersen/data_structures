@@ -1,26 +1,26 @@
 #include "../include/ilist.h"
 
-struct NodeIList {
+struct IListNode {
     int               data;
-    struct NodeIList* next;
+    struct IListNode* next;
 };
 
 struct IList {
-    NodeIList* head;
-    NodeIList* tail;
+    IListNode* head;
+    IListNode* tail;
     uint32_t   size;
 };
 
-NodeIList*
-nodeilist_create(int data) {
-    NodeIList* nil = smalloc(sizeof(NodeIList));
+IListNode*
+ilistnode(int data) {
+    IListNode* nil = smalloc(sizeof(IListNode));
     nil->data      = data;
     nil->next      = NULL;
     return nil;
 }
 
 IList*
-ilist_create_empty() {
+ilist_empty() {
     IList* il = smalloc(sizeof(IList));
     il->head  = NULL;
     il->tail  = NULL;
@@ -29,8 +29,8 @@ ilist_create_empty() {
 }
 
 IList*
-ilist_create(int num_of_list_elements, ...) {
-    IList*  il = ilist_create_empty();
+ilist(int num_of_list_elements, ...) {
+    IList*  il = ilist_empty();
     va_list args;
     va_start(args, num_of_list_elements);
 
@@ -44,7 +44,7 @@ ilist_create(int num_of_list_elements, ...) {
 
 void
 ilist_insert(IList* list, int data) {
-    NodeIList* new = nodeilist_create(data);
+    IListNode* new = ilistnode(data);
 
     if (list->head == NULL && list->tail == NULL) {
         list->head = new;
@@ -59,7 +59,7 @@ ilist_insert(IList* list, int data) {
 
 void
 ilist_print(IList* list) {
-    NodeIList* curr = list->head;
+    IListNode* curr = list->head;
 
     printf("List: [");
     while (curr) {
@@ -73,10 +73,10 @@ ilist_print(IList* list) {
 }
 void
 ilist_destroy(IList* list) {
-    NodeIList* curr = list->head;
+    IListNode* curr = list->head;
 
     while (curr) {
-        NodeIList* prev = curr;
+        IListNode* prev = curr;
         curr            = curr->next;
         free(prev);
         prev = NULL;
@@ -92,7 +92,7 @@ ilist_get_size(IList* list) {
 
 int
 ilist_get_data(IList* list, uint32_t index) {
-    NodeIList* curr = list->head;
+    IListNode* curr = list->head;
 
     if (index > list->size - 1) {
         fprintf(stderr, "ilist_get_data(): index out of bounds\n");

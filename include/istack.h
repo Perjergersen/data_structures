@@ -8,8 +8,8 @@
 typedef struct IStackNode IStackNode;
 typedef struct IStack     IStack;
 
-IStackNode* istacknode_create(int data);
-IStack*     istack_create();
+IStackNode* istacknode(int data);
+IStack*     istack();
 void        istack_insert(IStack* is, int data);
 int         istack_pop(IStack* is);
 IStackNode* istack_next(IStack* is);

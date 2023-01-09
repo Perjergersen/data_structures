@@ -1,29 +1,29 @@
 #include "../include/ihashmap.h"
 
-struct NodeIHashMap {
+struct IMapNode {
     int           key;
     int           value;
-    NodeIHashMap* next;
+    IMapNode* next;
 };
 
-struct IHashMap {
-    NodeIHashMap** map;
+struct IMap {
+    IMapNode** map;
     uint32_t       size;
 };
 
-NodeIHashMap*
-nodeihashmap_create(int key, int value) {
-    NodeIHashMap* node = smalloc(sizeof(NodeIHashMap));
+IMapNode*
+imapnode(int key, int value) {
+    IMapNode* node = smalloc(sizeof(IMapNode));
     node->key          = key;
     node->value        = value;
     node->next         = NULL;
     return node;
 }
 
-IHashMap*
-ihashmap_create(uint32_t size) {
-    IHashMap* hashmap = smalloc(sizeof(IHashMap));
-    hashmap->map      = smalloc(sizeof(NodeIHashMap*) * size);
+IMap*
+imap(uint32_t size) {
+    IMap* hashmap = smalloc(sizeof(IMap));
+    hashmap->map      = smalloc(sizeof(IMapNode*) * size);
     hashmap->size     = size;
 
     for (uint32_t i = 0; i < size; i++) {
@@ -34,15 +34,15 @@ ihashmap_create(uint32_t size) {
 }
 
 void
-ihashmap_insert(IHashMap* hm, int key, int value) {
+imap_insert(IMap* hm, int key, int value) {
     uint32_t      hashed_key = hash_int(hm, key);
-    NodeIHashMap* new_node   = nodeihashmap_create(key, value);
+    IMapNode* new_node   = imapnode(key, value);
 
     if (hm->map[hashed_key] == NULL) {
         hm->map[hashed_key] = new_node;
         // printf("k: %d, v: %d -- added at %u\n", key, value, hashed_key);
     } else {
-        NodeIHashMap* curr = hm->map[hashed_key];
+        IMapNode* curr = hm->map[hashed_key];
         if (curr->key == key) {
             printf("duplicate key attempted: %d:%d\n", key, value);
             return;
@@ -62,12 +62,12 @@ ihashmap_insert(IHashMap* hm, int key, int value) {
     }
 }
 
-NodeIHashMap*
-ihashmap_get(IHashMap* hm, int key) {
+IMapNode*
+imap_get(IMap* hm, int key) {
     // printf("looking for %d...\n", key);
     if (hm == NULL) {
         fprintf(stderr,
-                "Passed a IHashMap* into ihashmap_get_value that was pointing "
+                "Passed a IMap* into ihashmap_get_value that was pointing "
                 "to NULL");
         exit(EXIT_FAILURE);
     }
@@ -85,7 +85,7 @@ ihashmap_get(IHashMap* hm, int key) {
         return hm->map[hashed_key];
     }
 
-    NodeIHashMap* curr = hm->map[hashed_key];
+    IMapNode* curr = hm->map[hashed_key];
     while (curr) {
         if (curr->key == key) {
             // printf("returned k: %d, v: %d at %u\n", curr->key, curr->value,
@@ -98,14 +98,14 @@ ihashmap_get(IHashMap* hm, int key) {
 }
 
 void
-ihashmap_print(IHashMap* hm) {
+imap_print(IMap* hm) {
     printf("{ ");
     for (uint32_t i = 0; i < hm->size; i++) {
         if (hm->map[i] == NULL) {
             continue;
         }
 
-        NodeIHashMap* curr = hm->map[i];
+        IMapNode* curr = hm->map[i];
         while (curr) {
             printf("(%d: %d) ", curr->key, curr->value);
             curr = curr->next;
@@ -115,11 +115,11 @@ ihashmap_print(IHashMap* hm) {
 }
 
 void
-ihashmap_destroy(IHashMap* hm) {
+imap_destroy(IMap* hm) {
     for (uint32_t i = 0; i < hm->size; i++) {
-        NodeIHashMap* curr = hm->map[i];
+        IMapNode* curr = hm->map[i];
         while (curr) {
-            NodeIHashMap* prev = curr;
+            IMapNode* prev = curr;
             curr               = curr->next;
             free(prev);
             prev = NULL;
@@ -133,12 +133,12 @@ ihashmap_destroy(IHashMap* hm) {
 }
 
 int
-nodeihashmap_get_value(NodeIHashMap* node) {
+imapnode_value(IMapNode* node) {
     return node->value;
 }
 
 uint32_t
-hash_int(IHashMap* hm, int key) {
+hash_int(IMap* hm, int key) {
     uint32_t x = key;
     //
     x = ((x >> 16) ^ x) * 0x45d9f3b;
@@ -149,7 +149,7 @@ hash_int(IHashMap* hm, int key) {
         x = x % hm->size;
     } else {
         fprintf(stderr,
-                "Passed a IHashMap* into hash_int that was pointing to NULL");
+                "Passed a IMap* into hash_int that was pointing to NULL");
         exit(EXIT_FAILURE);
     }
     return x;

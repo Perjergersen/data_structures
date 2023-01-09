@@ -12,7 +12,7 @@ struct IStack {
 };
 
 IStackNode*
-istacknode_create(int data) {
+istacknode(int data) {
     IStackNode* isn = smalloc(sizeof(IStackNode));
     isn->data       = data;
     isn->next       = NULL;
@@ -20,7 +20,7 @@ istacknode_create(int data) {
 }
 
 IStack*
-istack_create() {
+istack() {
     IStack* is = smalloc(sizeof(IStack));
     is->head   = NULL;
     is->tail   = NULL;
@@ -30,7 +30,7 @@ istack_create() {
 
 void
 istack_insert(IStack* is, int data) {
-    IStackNode* new_node = istacknode_create(data);
+    IStackNode* new_node = istacknode(data);
 
     if (is->head == NULL) {
         is->head = new_node;

@@ -8,12 +8,12 @@
 
 #include "safe_xallocs.h"
 
-typedef struct NodeIList NodeIList;
+typedef struct IListNode IListNode;
 typedef struct IList     IList;
 
-NodeIList* nodeilist_create(int data);
-IList*     ilist_create_empty();
-IList*     ilist_create(int num_of_list_elements, ...);
+IListNode* ilistnode(int data);
+IList*     ilist_empty();
+IList*     ilist(int num_of_list_elements, ...);
 void       ilist_insert(IList* list, int data);
 void       ilist_print(IList* list);
 void       ilist_destroy(IList* list);

@@ -1,28 +1,28 @@
 #include "../include/ivector.h"
 
-struct IVector {
+struct IVec {
     int* vec;
     int  size;
     int  mem_alloc;
 };
 
-IVector*
-ivector_create_empty() {
-    IVector* iv   = smalloc(sizeof(IVector));
+IVec*
+ivec_empty() {
+    IVec* iv   = smalloc(sizeof(IVec));
     iv->mem_alloc = 2;
     iv->vec       = scalloc(iv->mem_alloc, sizeof(int));
     iv->size      = 0;
     return iv;
 }
 
-IVector*
-ivector_create(int num_of_vec_elements, ...) {
-    IVector* iv = ivector_create_empty();
+IVec*
+ivec(int num_of_vec_elements, ...) {
+    IVec* iv = ivec_empty();
     va_list  args;
     va_start(args, num_of_vec_elements);
 
     for (int i = 0; i < num_of_vec_elements; i++) {
-        ivector_insert(iv, va_arg(args, int));
+        ivec_insert(iv, va_arg(args, int));
     }
 
     va_end(args);
@@ -30,7 +30,7 @@ ivector_create(int num_of_vec_elements, ...) {
 }
 
 void
-ivector_insert(IVector* iv, int data) {
+ivec_insert(IVec* iv, int data) {
     if (iv->size == iv->mem_alloc) {
         iv->mem_alloc *= 2;
         iv->vec = srealloc(iv->vec, iv->mem_alloc * sizeof(int));
@@ -41,7 +41,7 @@ ivector_insert(IVector* iv, int data) {
 }
 
 void
-ivector_print(IVector* iv) {
+ivec_print(IVec* iv) {
     printf("Vector: [");
     for (int i = 0; i < iv->size; i++) {
         printf("%d", iv->vec[i]);
@@ -53,9 +53,9 @@ ivector_print(IVector* iv) {
 }
 
 int
-ivector_get(IVector* iv, int index) {
+ivec_get(IVec* iv, int index) {
     if (index < 0 || index >= iv->size) {
-        fprintf(stderr, "ivector_get index out of bounds\n");
+        fprintf(stderr, "ivec_get index out of bounds\n");
         fprintf(stderr, "attempting to access index %d in size %d array\n",
                 index, iv->size);
         exit(EXIT_FAILURE);
@@ -65,12 +65,12 @@ ivector_get(IVector* iv, int index) {
 }
 
 int
-ivector_size(IVector* iv) {
+ivec_size(IVec* iv) {
     return iv->size;
 }
 
 void
-ivector_destroy(IVector* iv) {
+ivec_destroy(IVec* iv) {
     free(iv->vec);
     iv->vec = NULL;
     free(iv);

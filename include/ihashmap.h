@@ -7,16 +7,16 @@
 
 #include "safe_xallocs.h"
 
-typedef struct NodeIHashMap NodeIHashMap;
-typedef struct IHashMap     IHashMap;
+typedef struct IMapNode IMapNode;
+typedef struct IMap     IMap;
 
-NodeIHashMap* nodeihashmap_create(int key, int value);
-IHashMap*     ihashmap_create(uint32_t size);
-void          ihashmap_insert(IHashMap* hm, int key, int value);
-NodeIHashMap* ihashmap_get(IHashMap* hm, int key);
-void          ihashmap_print(IHashMap* hm);
-void          ihashmap_destroy(IHashMap* hm);
-int           nodeihashmap_get_value(NodeIHashMap* node);
-uint32_t      hash_int(IHashMap* hm, int key);
+IMapNode* imapnode(int key, int value);
+IMap*     imap(uint32_t size);
+void          imap_insert(IMap* hm, int key, int value);
+IMapNode* imap_get(IMap* hm, int key);
+void          imap_print(IMap* hm);
+void          imap_destroy(IMap* hm);
+int           imapnode_value(IMapNode* node);
+uint32_t      hash_int(IMap* hm, int key);
 
 #endif

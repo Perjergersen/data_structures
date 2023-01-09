@@ -12,7 +12,7 @@ struct IQueue {
 };
 
 IQueueNode*
-iqueuenode_create(int data) {
+iqueuenode(int data) {
     IQueueNode* iqn = smalloc(sizeof(IQueueNode));
     iqn->data       = data;
     iqn->next       = NULL;
@@ -20,7 +20,7 @@ iqueuenode_create(int data) {
 }
 
 IQueue*
-iqueue_create() {
+iqueue() {
     IQueue* iq = smalloc(sizeof(IQueue));
     iq->head   = NULL;
     iq->tail   = NULL;
@@ -30,7 +30,7 @@ iqueue_create() {
 
 void
 iqueue_insert(IQueue* iq, int data) {
-    IQueueNode* new_node = iqueuenode_create(data);
+    IQueueNode* new_node = iqueuenode(data);
 
     if (iq->head == NULL) {
         iq->head = new_node;
