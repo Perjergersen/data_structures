@@ -12,7 +12,7 @@ ihashmap_test_files=./src/ihashmap.c ./include/ihashmap.h ./test/ihashmap_test.c
 all: ./target/$(name) run
 
 init:
-	mkdir target target/dslib
+	@mkdir -p target target/dslib
 
 ./target/$(name): $(includes) $(src)
 	@$(CC) $(flags) $(includes) $(src) -o $@ $(math)
@@ -63,9 +63,13 @@ clean:
 	rm -rf ./target/*
 
 install: init gen-libs
-	mkdir /usr/include/dslib
+	mkdir -p /usr/include/dslib
 	cp ./include/* /usr/include/dslib
 	cp ./target/dslib/* /usr/lib/
+
+uninstall: clean
+	rm -rf /usr/include/dslib
+	rm -rf /usr/lib/dslib
 
 format-all: $(includes) $(src)
 	@clang-format -i $(all_C_and_H_files);
