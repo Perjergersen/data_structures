@@ -12,7 +12,7 @@ ihashmap_test_files=./src/ihashmap.c ./include/ihashmap.h ./test/ihashmap_test.c
 all: ./target/$(name) run
 
 init:
-	mkdir include src target test target/dslib
+	mkdir target target/dslib
 
 ./target/$(name): $(includes) $(src)
 	@$(CC) $(flags) $(includes) $(src) -o $@ $(math)
@@ -61,6 +61,11 @@ gen-libs: ./target/dslib/libsafe_xallocs.so ./target/dslib/libistack.so ./target
 
 clean:
 	rm -rf ./target/*
+
+install: init gen-libs
+	mkdir /usr/include/dslib
+	cp ./include/* /usr/include/dslib
+	cp ./target/dslib/* /usr/lib/
 
 format-all: $(includes) $(src)
 	@clang-format -i $(all_C_and_H_files);
